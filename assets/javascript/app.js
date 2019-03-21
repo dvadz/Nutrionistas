@@ -1,5 +1,2 @@
-// GOALS
-// goal-display
-// goal-consumed
-// goal-remaining
+$(document).ready(function() {});
 
