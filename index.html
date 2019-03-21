@@ -6,28 +6,90 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <scriptsrc="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <!-- <script src="./assets/javascript/app.js"></script> -->
     <title>Nutrionistas</title>
 </head>
 <body>
     <div class="container">
         <div class="jumbotron text-center"><h1> Nutrionista</h1></div>
-        <div class="goal">
-            <h4>Goal</h4>
+        <!-- GOALS -->
+        <div class="section border border-danger rounded my-4 goal">
+            <h5 class="heading bg-danger px-2 px-2">Set Your Goal</h5>
         </div>
-        <div class="summary">
-            <h4>Summary</h4>
+        <!-- SUMMARY -->
+        <div class="section border border-primary rounded my-4 summary">
+            <h5 class="heading bg-primary px-2">Summary</h5>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-4"><h6>Goal<span id="goal-display" class="px-3">1500</span></h6></div>
+                    <div class="col-12 col-sm-4"><h6>Consumed<span id="consumed-display" class="px-3">1200</span></h6></div>
+                    <div class="col-12 col-sm-4"><h6>Remaining<span id="remaining-display" class="px-3">300</span></h6></div>
+                </div>
+            </div>
         </div>
-        <div class="summary">
-            <h4>Breakfast</h4>
+        <!-- BREAKFAST -->
+        <div class="section border border-primary rounded my-4 breakfast">
+            <h5 class="heading bg-primary px-2">Breakfast</h5>
+            <form class="form-inline pl-2">
+                <input id="breakfast-input" class="form-control mr-2" placeholder="food" aria-label="Search">
+                <button class="btn btn-outline-primary my-2" type="submit">Search</button>
+            </form>
+            <div id="breakfast-display"></div>
+            <ul>
+                <li>banana </li>
+                <li>cereal</li>
+            </ul>
         </div>
-        <div class="summary">
-            <h4>Lunch</h4>
+        <!-- LUNCH -->
+        <div class="section border border-primary rounded my-4 lunch">
+            <h5 class="heading bg-primary px-2">Lunch</h5>
+            <form class="form-inline pl-2">
+                    <input id="lunch-input" class="form-control mr-2" placeholder="food" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2" type="submit">Search</button>
+                </form>
+                <div id="lunch-display"></div>
+                <ul>
+                    <li>banana</li>
+                    <li>cereal</li>
+                </ul>
+            </div>
+        <!-- DINNER -->
+        <div class="section border border-primary rounded my-4 dinner">
+            <h5 class="heading bg-primary px-2">Dinner</h5>
+            <form class="form-inline pl-2">
+                <input id="dinner-input" class="form-control mr-2" placeholder="food" aria-label="Search">
+                <button class="btn btn-outline-primary my-2" type="submit">Search</button>
+            </form>
+            <div id="dinner-display"></div>
+            <ul>
+                <li>banana </li>
+                <li>cereal</li>
+            </ul>
         </div>
-        <div class="summary">
-            <h4>Dinner</h4>
+        <!-- SNACKS -->
+        <div class="section border border-primary rounded my-4 snacks">
+            <h5 class="heading bg-primary px-2">Snacks</h5>
+            <form class="form-inline pl-2">
+                <input id="snack-input" class="form-control mr-2" placeholder="food" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-2" type="submit">Search</button>
+            </form>
+            <div id="snack-display"></div>
+            <ul>
+                <li>banana </li>
+                <li>cereal</li>
+            </ul>
+            <div class="search-list">
+                <ul class="border">
+                    <li>small banana</li>
+                    <li>large banana</li>
+                    <li>banana bread</li>
+                </ul>
+            </div>
         </div>
-        <div class="summary">
-            <h4>Snacks</h4>
+        <!-- WEIGHT -->
+        <div class="section border border-primary rounded my-4 weight">
+            <h5 class="heading bg-primary px-2">Weight</h5>
         </div>
     </div>
 </body>
