@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(document).ready(function(){
 
 var CHART = document.getElementById("lineChart");
@@ -34,3 +35,7 @@ lineChart = new CHART(CHART, {
 
 
 })
+=======
+$(document).ready(function() {});
+
+>>>>>>> 8e9f1f5df1171d60d5257e90d6414cde6dcdb754
