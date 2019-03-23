@@ -4,22 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <scriptsrc="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/styles.css">
-    <!-- <script src="./assets/javascript/app.js"></script> -->
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="./assets/javascript/app.js"></script>
     <title>Nutrionistas</title>
 </head>
 <body>
     <div class="container">
-        <div class="jumbotron text-center"><h1> Nutrionista</h1></div>
-        <!-- GOALS -->
+        <div class="jumbotron text-center"><h1> Nutrionistas</h1></div>
+        <!-- USER INFO -->
         <div class="section border border-danger rounded my-4 goal">
-            <h5 class="heading bg-danger px-2 px-2">Set Your Goal</h5>
+            <h5 class="heading bg-danger px-2 px-2">User Info</h5>
+            <!-- displays current user info -->
+            <div id="user-info-display" class="container mb-3">
+                <div>
+                    <label>Name</label> <span id="name-display">You</span>
+                </div> 
+                <div>
+                    <label>Gender</label> <span id="gender-display">You</span>
+                </div>
+                <div>
+                    <label>Goal</label> <span id="goal-display">1500</span>
+                </div>
+                <button id="edit-button" class="btn btn-outline-primary">Edit</button>
+            </div>
+            <!-- edit user info -->
+            <div id="user-info-input" class="container" >
+                <form>
+                    <div class="form-group">
+                        <label>Your</label> 
+                        <input id="name-input" class="form-control" type="text"></input>
+                    </div> 
+                    <div>
+                        <label>Gender</label>
+                        <div class="form-check">
+                            <input id="gender1" type="radio" name="gender" checked></input>
+                            <label>Female</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="gender2" type="radio" name="gender"></input>
+                            <label>Male</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Goal</label> 
+                        <div class="form-check">
+                            <input id="goal-easy" type="radio" name="goal" checked></input>
+                            <label>Easy</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="goal-mod" type="radio" name="goal"></input>
+                            <label>Moderate</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="goal-hard" type="radio" name="goal"></input>
+                            <label>Hard</label>
+                        </div>
+                    </div>
+                    <button id="submit-button" class="btn btn-outline-primary my-4">Submit</button>
+                </form>
+            </div>
         </div>
         <!-- SUMMARY -->
         <div class="section border border-primary rounded my-4 summary">
-            <h5 class="heading bg-primary px-2">Summary</h5>
+            <h5 class="heading bg-primary px-2">Summary - Show Date Somewhere</h5>
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-sm-4"><h6>Goal<span id="goal-display" class="px-3">1500</span></h6></div>
@@ -33,52 +86,60 @@
             <h5 class="heading bg-primary px-2">Breakfast</h5>
             <form class="form-inline pl-2">
                 <input id="breakfast-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                <button class="btn btn-outline-primary my-2" type="submit">Search</button>
+                <button id="breakfast-button" class="btn btn-outline-primary my-2" type="submit">Search</button>
             </form>
-            <div id="breakfast-display"></div>
-            <ul>
-                <li>banana </li>
-                <li>cereal</li>
-            </ul>
+            <div id="breakfast-display" class="container">
+                <div class="row my-2">
+                    <div class="col-6 col-sm-2">cereal</div>
+                    <div class="col-6 col-sm-2">100 cal</div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6 col-sm-2">boiled egg</div>
+                    <div class="col-6 col-sm-2">70 cal</div>
+                </div>
+            </div>
         </div>
         <!-- LUNCH -->
         <div class="section border border-primary rounded my-4 lunch">
             <h5 class="heading bg-primary px-2">Lunch</h5>
             <form class="form-inline pl-2">
                     <input id="lunch-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                    <button class="btn btn-outline-primary my-2" type="submit">Search</button>
+                    <button id="lunch-button" class="btn btn-outline-primary my-2" type="submit">Search</button>
                 </form>
-                <div id="lunch-display"></div>
-                <ul>
-                    <li>banana</li>
-                    <li>cereal</li>
-                </ul>
+                <div id="lunch-display">
+                    <ul>
+                        <li>banana</li>
+                        <li>cereal</li>
+                    </ul>
+                </div>
             </div>
         <!-- DINNER -->
         <div class="section border border-primary rounded my-4 dinner">
             <h5 class="heading bg-primary px-2">Dinner</h5>
             <form class="form-inline pl-2">
                 <input id="dinner-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                <button class="btn btn-outline-primary my-2" type="submit">Search</button>
+                <button id="dinner-button" class="btn btn-outline-primary my-2" type="submit">Search</button>
             </form>
-            <div id="dinner-display"></div>
-            <ul>
-                <li>banana </li>
-                <li>cereal</li>
-            </ul>
+            <div id="dinner-display">         
+                <ul>
+                    <li>banana </li>
+                    <li>cereal</li>
+                </ul>
+            </div>
         </div>
         <!-- SNACKS -->
         <div class="section border border-primary rounded my-4 snacks">
             <h5 class="heading bg-primary px-2">Snacks</h5>
             <form class="form-inline pl-2">
                 <input id="snack-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                <button class="btn btn-outline-primary my-2 my-2" type="submit">Search</button>
+                <button id="snacks-button" class="btn btn-outline-primary my-2 my-2" type="submit">Search</button>
             </form>
-            <div id="snack-display"></div>
-            <ul>
-                <li>banana </li>
-                <li>cereal</li>
-            </ul>
+            <div id="snack-display">
+                <ul>
+                    <li>banana </li>
+                    <li>cereal</li>
+                </ul>
+            </div>
             <div class="search-list">
                 <ul class="border">
                     <li>small banana</li>
@@ -92,7 +153,6 @@
             <h5 class="heading bg-primary px-2">Weight</h5>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <canvas id="lineChart" width="400px" height="400px"></canvas>
+
 </body>
 </html>
