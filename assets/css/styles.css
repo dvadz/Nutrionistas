@@ -2,3 +2,11 @@
   background: url(https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg);
   color: aliceblue;
 }
+
+canvas {
+  width: 50rem;
+  height: 10rem;
+}
+.row {
+  height: 5rem;
+}
