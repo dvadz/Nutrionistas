@@ -151,8 +151,138 @@
         <!-- WEIGHT -->
         <div class="section border border-primary rounded my-4 weight">
             <h5 class="heading bg-primary px-2">Weight</h5>
+
+            <!--TODO: add form to enter weight every day [Mon, Tue, Wed, Thurs, etc.-->
+        <form>
+            <!--Monday-->
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <div class="form-group">
+                  <label for="inputMonday">Monday</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputMonday"
+                    placeholder="Enter weight"
+                  />
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+  
+            <!--Tuesday-->
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <div class="form-group">
+                  <label for="inputTuesday">Tuesday</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputTuesday"
+                    placeholder="Enter weight"
+                  />
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <!--Wednesday-->
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <div class="form-group">
+                  <label for="inputWednesday">Wednesday</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputWednesday"
+                    placeholder="Enter weight"
+                  />
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <!--Thursday-->
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <div class="form-group">
+                  <label for="inputThursday">Thursday</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputThursday"
+                    placeholder="Enter weight"
+                  />
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <!--Friday-->
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <div class="form-group">
+                  <label for="inputFriday">Friday</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputFriday"
+                    placeholder="Enter weight"
+                  />
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <!--Saturday-->
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <div class="form-group">
+                  <label for="inputSaturday">Saturday</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputSaturday"
+                    placeholder="Enter weight"
+                  />
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <!--Sunday-->
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <div class="form-group">
+                  <label for="inputSunday">Sunday</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputSunday"
+                    placeholder="Enter weight"
+                  />
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <button type="submitWeight" class="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+              <div class="col-1"></div>
+            </div>
         </div>
     </div>
+<!--CHART-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="./assets/javascript/app.js"></script>
+
+    <canvas id="line-chart" width="50rem" height="50rem"></canvas>
 
 </body>
 </html>
