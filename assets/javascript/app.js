@@ -82,11 +82,6 @@ var foodItem = {
     calories: 0
 };
 
-var foodItem = {
-    name: "",
-    calories: 0
-};
-
 var nutrionistasApp = {
     breakfast: [],
     lunch: [],
