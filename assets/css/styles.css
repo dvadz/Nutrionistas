@@ -10,3 +10,8 @@ canvas {
 .row {
   height: 5rem;
 }
+
+h5 {
+  background-color: aquamarine;
+  color: white;
+}
