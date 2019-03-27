@@ -505,9 +505,9 @@ function test_food() {
     nutrionistasApp.dinner.push({name, calories});
 
     // snacks
-    // name = "chocolate cake";
-    // calories = 400;
-    // nutrionistasApp.snacks.push({name, calories});
+    name = "chocolate cake";
+    calories = 400;
+    nutrionistasApp.snacks.push({name, calories});
     
     nutrionistasApp.dbRef.set({
         "breakfast": nutrionistasApp.breakfast,
