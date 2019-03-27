@@ -73,6 +73,17 @@ $(document).ready(function() {
     }
   });
 
+  console.log("document is ready");
+
+  start();
+
+  //EVENT: Submit
+  $("#submit-button").on("click", function(){  
+      collectUserInfo();
+  });
+
+});
+
   //VARIABLES
   ("use strict");
   var debug = true;
@@ -216,31 +227,6 @@ function processFoodFromDatabase(snapshot){
     $("#remaining-display").text(nutrionistasApp.userInfo.dailyCalories - nutrionistasApp.consumedCalories);
 
 }
-
-
-// DOCUMENT READY--------------------------
-$(document).ready(function() {
-    console.log("document is ready");
-
-    start();
-  });
-
-    //EVENT: Submit
-    $("#submit-button").on("click", function(){  
-        collectUserInfo();
-    });
-
-    //EVENT: Submit
-    $("#submit-button").on("click", function(){  
-        collectUserInfo();
-    });
-
-    //EVENT: Submit
-    $("#submit-button").on("click", function(){  
-        collectUserInfo();
-    });
-
-});
 
     nutrionistasApp.isUserInfoComplete = false;
 
