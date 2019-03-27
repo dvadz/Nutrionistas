@@ -51,6 +51,17 @@ $(document).ready(function() {
     dbRef: "",
     listener: ""
   };
+
+  var string1 = "";
+  var object1 = { M: 1, t: 2, w: 3, th: 4, f: 5, sa: 6, su: 7 };
+  console.log(object1.su);
+  var data = [];
+  //for (var property1 in object1) {
+  //database.ref.push(object1[property1]);
+  //}
+
+  console.log(string1);
+  // expected output: "123"
   // -----------------------------------------------------
   // Initialize Firebase
   var config = {
@@ -81,6 +92,21 @@ $(document).ready(function() {
         readDatabase(snapshot.val());
       });
   }
+  $("infoSubmit").on("submit", function(thing) {
+    thing.preventDefault();
+    var nameInput = $("#name-input")
+      .val()
+      .trim();
+    sessionStorage.setItem("Name", nameInput);
+
+    var dateString = moment(Date.now()).format("dddd MMMM DD YYYY");
+
+    database.ref(`/weight/${dateString}`).push({
+      nameInput: nameInput
+    });
+  });
+
+  $("#name-input").val(sessionStorage.getItem("Name"));
 
   $("#submitButton").on("click", function(event) {
     event.preventDefault();
