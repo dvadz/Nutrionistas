@@ -227,6 +227,9 @@ function processFoodFromDatabase(snapshot){
     $("#remaining-display").text(nutrionistasApp.userInfo.dailyCalories - nutrionistasApp.consumedCalories);
 
 }
+// LOCALSTORAGE -----------------------------------
+function retrieveUserInfoFromLocalStorage (){
+    if(debug) {console.log("Function: retrieveUserInfo")}
 
     nutrionistasApp.isUserInfoComplete = false;
 
@@ -245,7 +248,7 @@ function processFoodFromDatabase(snapshot){
         $("#user-info-input").show();
         $("#user-info-display").hide();
     }
-  }
+}
 
   function storeUserInfoIntoLocalStorage() {
     if (debug) {
