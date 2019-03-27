@@ -9,56 +9,11 @@ $(document).ready(function() {
         "Thursday",
         "Friday",
         "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
         "Sunday"
       ],
       datasets: [
         {
-          data: [
-            186,
-            183,
-            183,
-            181,
-            179,
-            177,
-            174,
-            173,
-            171,
-            170,
-            169,
-            169,
-            168,
-            166,
-            165,
-            162,
-            159,
-            161,
-            158,
-            157,
-            154,
-            154,
-            152
-          ],
+          data: [186, 183, 183, 181, 179, 177, 174],
           label: "Your Weight",
           borderColor: "#3e95cd",
           fill: false
@@ -127,7 +82,8 @@ $(document).ready(function() {
       });
   }
 
-  $(".form-group").on("keyup", function() {
+  $("#submitButton").on("click", function(event) {
+    event.preventDefault();
     var weightMonday = $("#inputMonday")
       .val()
       .trim();
@@ -157,7 +113,20 @@ $(document).ready(function() {
     sessionStorage.setItem("Friday", weightFriday);
     sessionStorage.setItem("Saturday", weightSaturday);
     sessionStorage.setItem("Sunday", weightSunday);
+
+    var dateString = moment(Date.now()).format("dddd MMMM DD YYYY");
+
+    database.ref(`/weight/${dateString}`).push({
+      weightMonday: weightMonday,
+      weightTuesday: weightTuesday,
+      weightWednesday: weightWednesday,
+      weightThursday: weightThursday,
+      weightFriday: weightFriday,
+      weightSaturday: weightSaturday,
+      weightSunday: weightSunday
+    });
   });
+
   $("#inputMonday").val(sessionStorage.getItem("Monday"));
   $("#inputTuesday").val(sessionStorage.getItem("Tuesday"));
   $("#inputWednesday").val(sessionStorage.getItem("Wednesday"));
@@ -166,70 +135,7 @@ $(document).ready(function() {
   $("#inputSaturday").val(sessionStorage.getItem("Saturday"));
   $("#inputSunday").val(sessionStorage.getItem("Sunday"));
 
-  $("#submit").on("click", function(event) {
-    event.preventDefault();
-
-    if (
-      $("#inputMonday")
-        .val()
-        .trim() === "" ||
-      $("#inputTuesday")
-        .val()
-        .trim() === "" ||
-      $("#inputWednesday")
-        .val()
-        .trim() === "" ||
-      $("#inputThursday")
-        .val()
-        .trim() === "" ||
-      $("#inputFriday")
-        .val()
-        .trim() === "" ||
-      $("#inputSaturday")
-        .val()
-        .trim() === "" ||
-      $("#inputSunday")
-        .val()
-        .trim() === ""
-    ) {
-      alert("Please fill in all the details");
-    } else {
-      weightMondayIs = $("#inputMonday")
-        .val()
-        .trim();
-      weightTuesdayIs = $("#inputTuesday")
-        .val()
-        .trim();
-      weightWednesdayIs = $("#inputWednesday")
-        .val()
-        .trim();
-      weightThursdayIs = $("#inputThursday")
-        .val()
-        .trim();
-      weightFridayIs = $("#inputFriday")
-        .val()
-        .trim();
-      weightSaturdayIs = $("#inputSaturday")
-        .val()
-        .trim();
-      weightSundayIs = $("#inputSunday")
-        .val()
-        .trim();
-
-      $(".form-group").val("");
-
-      database.ref().push({
-        weightMondayIs: weightMondayIs,
-        weightTuesdayIs: weightTuesdayIs,
-        weightWednesdayIs: weightWednesdayIs,
-        weightThursdayIs: weightThursdayIs,
-        weightFridayIs: weightFridayIs,
-        weightSaturdayIs: weightSaturdayIs,
-        weightSundayIs: weightSundayIs,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
-      });
-    }
-  });
+  $(".form-group").val("");
 
   function cancelValueListener(childName) {
     if (debug) {
