@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  new Chart(document.getElementById("line-chart"), {
+    new Chart(document.getElementById("line-chart"), {
     type: "line",
     data: {
       labels: [
@@ -71,27 +71,27 @@ $(document).ready(function() {
         text: "Daily Weight Tracker"
       }
     }
-  });
+    });
 
-  console.log("document is ready");
+    console.log("document is ready");
 
-  start();
+    start();
 
-  //EVENT: Submit
-  $("#submit-button").on("click", function(){  
-      collectUserInfo();
-  });
+    //EVENT: Submit
+    $("#submit-button").on("click", function(){  
+        collectUserInfo();
+    });
 
 });
 
-  //VARIABLES
-  ("use strict");
-  var debug = true;
+    //VARIABLES
+    'use strict'
+    var debug = true;
 
-var foodItem = {
-    name: "",
-    calories: 0
-};
+    var foodItem = {
+        name: "",
+        calories: 0
+    };
 
 var nutrionistasApp = {
     breakfast: [],
@@ -125,7 +125,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-  var database = firebase.database();
+var database = firebase.database();
 
 function setupValueListener(childName) {
     if(debug) {console.log("Function: setupValueListener - ", childName )}
@@ -219,12 +219,12 @@ function processFoodFromDatabase(snapshot){
     
         });
     }
-
+    console.log(nutrionistasApp.userInfo);
     //TODO: check if dailyCalories/goal is zero > show '--' for goal and remaining
     //TODO: show target, consumed and remaining
-    $("#goal-display").text(nutrionistasApp.userInfo.dailyCalories);
-    $("#consumed-display").text(nutrionistasApp.consumedCalories);
-    $("#remaining-display").text(nutrionistasApp.userInfo.dailyCalories - nutrionistasApp.consumedCalories);
+    $("#daily-calories-display").text(nutrionistasApp.userInfo.dailyCalories);
+    $("#consumed-calories-display").text(nutrionistasApp.consumedCalories);
+    $("#remaining-calories-display").text(nutrionistasApp.userInfo.dailyCalories - nutrionistasApp.consumedCalories);
 
 }
 // LOCALSTORAGE -----------------------------------
@@ -505,9 +505,9 @@ function test_food() {
     nutrionistasApp.dinner.push({name, calories});
 
     // snacks
-    // name = "chocolate cake";
-    // calories = 400;
-    // nutrionistasApp.snacks.push({name, calories});
+    name = "chocolate cake";
+    calories = 400;
+    nutrionistasApp.snacks.push({name, calories});
     
     nutrionistasApp.dbRef.set({
         "breakfast": nutrionistasApp.breakfast,
