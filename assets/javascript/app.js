@@ -521,8 +521,4 @@ function test_food() {
     - faking date to test date rollover in the "getTheCurentDateAndTime"
     - setting a short end of day rollover timer "getReadyForAnotherDay"
     - at the end of 'start' i executed 'test_food'
-<<<<<<< Updated upstream
 */
-=======
-*/
->>>>>>> Stashed changes
