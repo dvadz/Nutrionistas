@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  new Chart(document.getElementById("line-chart"), {
+    new Chart(document.getElementById("line-chart"), {
     type: "line",
     data: {
       labels: [
@@ -71,27 +71,27 @@ $(document).ready(function() {
         text: "Daily Weight Tracker"
       }
     }
-  });
+    });
 
-  console.log("document is ready");
+    console.log("document is ready");
 
-  start();
+    start();
 
-  //EVENT: Submit
-  $("#submit-button").on("click", function(){  
-      collectUserInfo();
-  });
+    //EVENT: Submit
+    $("#submit-button").on("click", function(){  
+        collectUserInfo();
+    });
 
 });
 
-  //VARIABLES
-  ("use strict");
-  var debug = true;
+    //VARIABLES
+    'use strict'
+    var debug = true;
 
-var foodItem = {
-    name: "",
-    calories: 0
-};
+    var foodItem = {
+        name: "",
+        calories: 0
+    };
 
 var nutrionistasApp = {
     breakfast: [],
@@ -125,7 +125,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-  var database = firebase.database();
+var database = firebase.database();
 
 function setupValueListener(childName) {
     if(debug) {console.log("Function: setupValueListener - ", childName )}
