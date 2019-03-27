@@ -9,56 +9,11 @@ $(document).ready(function() {
         "Thursday",
         "Friday",
         "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
         "Sunday"
       ],
       datasets: [
         {
-          data: [
-            186,
-            183,
-            183,
-            181,
-            179,
-            177,
-            174,
-            173,
-            171,
-            170,
-            169,
-            169,
-            168,
-            166,
-            165,
-            162,
-            159,
-            161,
-            158,
-            157,
-            154,
-            154,
-            152
-          ],
+          data: [186, 183, 183, 181, 179, 177, 174],
           label: "Your Weight",
           borderColor: "#3e95cd",
           fill: false
@@ -107,12 +62,23 @@ var nutrionistasApp = {
     isUserInfoComplete: false,
     currentDateString: "",
     dbRef: "",
-    listener: "",
+    listener: ""
     secondsRemaining: 0,
     endOfDayTimer: "",
     consumedCalories: 0,
     remainingCalories: 0
 }
+
+  var string1 = "";
+  var object1 = { M: 1, t: 2, w: 3, th: 4, f: 5, sa: 6, su: 7 };
+  console.log(object1.su);
+  var data = [];
+  //for (var property1 in object1) {
+  //database.ref.push(object1[property1]);
+  //}
+
+  console.log(string1);
+  // expected output: "123"
 // -----------------------------------------------------
 // Initialize Firebase
 var config = {
@@ -138,6 +104,81 @@ function setupValueListener(childName) {
     });
 }
 
+// all about the chart----------------------------------------
+
+$("infoSubmit").on("submit", function(thing) {
+    thing.preventDefault();
+    var nameInput = $("#name-input")
+      .val()
+      .trim();
+    sessionStorage.setItem("Name", nameInput);
+
+    var dateString = moment(Date.now()).format("dddd MMMM DD YYYY");
+
+    database.ref(`/weight/${dateString}`).push({
+      nameInput: nameInput
+    });
+  });
+
+  $("#name-input").val(sessionStorage.getItem("Name"));
+
+  $("#submitButton").on("click", function(event) {
+    event.preventDefault();
+    var weightMonday = $("#inputMonday")
+      .val()
+      .trim();
+    var weightTuesday = $("#inputTuesday")
+      .val()
+      .trim();
+    var weightWednesday = $("#inputWednesday")
+      .val()
+      .trim();
+    var weightThursday = $("#inputThursday")
+      .val()
+      .trim();
+    var weightFriday = $("#inputFriday")
+      .val()
+      .trim();
+    var weightSaturday = $("#inputSaturday")
+      .val()
+      .trim();
+    var weightSunday = $("#inputSunday")
+      .val()
+      .trim();
+
+    sessionStorage.setItem("Monday", weightMonday);
+    sessionStorage.setItem("Tuesday", weightTuesday);
+    sessionStorage.setItem("Wednesday", weightWednesday);
+    sessionStorage.setItem("Thursday", weightThursday);
+    sessionStorage.setItem("Friday", weightFriday);
+    sessionStorage.setItem("Saturday", weightSaturday);
+    sessionStorage.setItem("Sunday", weightSunday);
+
+    var dateString = moment(Date.now()).format("dddd MMMM DD YYYY");
+
+    database.ref(`/weight/${dateString}`).push({
+      weightMonday: weightMonday,
+      weightTuesday: weightTuesday,
+      weightWednesday: weightWednesday,
+      weightThursday: weightThursday,
+      weightFriday: weightFriday,
+      weightSaturday: weightSaturday,
+      weightSunday: weightSunday
+    });
+  });
+
+  $("#inputMonday").val(sessionStorage.getItem("Monday"));
+  $("#inputTuesday").val(sessionStorage.getItem("Tuesday"));
+  $("#inputWednesday").val(sessionStorage.getItem("Wednesday"));
+  $("#inputThursday").val(sessionStorage.getItem("Thursday"));
+  $("#inputFriday").val(sessionStorage.getItem("Friday"));
+  $("#inputSaturday").val(sessionStorage.getItem("Saturday"));
+  $("#inputSunday").val(sessionStorage.getItem("Sunday"));
+
+  $(".form-group").val("");
+
+// end of chart -----------------------------------------------  
+  
 function cancelValueListener(childName){
     if(debug) {console.log("Function: cancelValueListener")}
     
