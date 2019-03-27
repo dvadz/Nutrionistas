@@ -219,12 +219,12 @@ function processFoodFromDatabase(snapshot){
     
         });
     }
-
+    console.log(nutrionistasApp.userInfo);
     //TODO: check if dailyCalories/goal is zero > show '--' for goal and remaining
     //TODO: show target, consumed and remaining
-    $("#goal-display").text(nutrionistasApp.userInfo.dailyCalories);
-    $("#consumed-display").text(nutrionistasApp.consumedCalories);
-    $("#remaining-display").text(nutrionistasApp.userInfo.dailyCalories - nutrionistasApp.consumedCalories);
+    $("#daily-calories-display").text(nutrionistasApp.userInfo.dailyCalories);
+    $("#consumed-calories-display").text(nutrionistasApp.consumedCalories);
+    $("#remaining-calories-display").text(nutrionistasApp.userInfo.dailyCalories - nutrionistasApp.consumedCalories);
 
 }
 // LOCALSTORAGE -----------------------------------
