@@ -47,15 +47,18 @@ $(document).ready(function() {
         //value + '-input' = id of input element
         nutrionistasApp.search = $(this).val();
         let inputName = "#" + $(this).val() + "-input";
-        let foodItem = $(inputName).val().trim().toLowerCase();
-        if(foodItem===""){
+        let searchWords = $(inputName).val().trim().toLowerCase();
+        if(searchWords===""){
             console.log("please enter a food");
             return false;
         }
 
-        foodItem = foodItem.replace(' ','%20');
-        console.log("Search for FOOD: ",foodItem);
-        foodSearch(foodItem);
+        //clear the input
+        $(inputName).val("");
+
+        searchWords = searchWords.replace(' ','%20');
+        console.log("Search for FOOD: ",searchWords);
+        foodSearch(searchWords);
     });
     
     // EVENT: accept/cancel food search result
@@ -66,17 +69,35 @@ $(document).ready(function() {
         //get the user response > accept or cancel
         let userResponse = $(this).val();
         
-        //do nothing
         if(userResponse==="cancel"){
+            //do nothing
 
-        //save the food
-        } else {
-
+        } else { 
+            switch(nutrionistasApp.search) {
+                case 'breakfast':
+                    nutrionistasApp.breakfast.push({name:foodItem.name, calories:foodItem.calories});
+                    console.log(nutrionistasApp.breakfast);
+                    break;
+                case 'lunch':
+                    nutrionistasApp.lunch.push({name:foodItem.name, calories:foodItem.calories});
+                    console.log(nutrionistasApp.lunch);
+                    break;
+                case 'dinner':
+                    nutrionistasApp.dinner.push({name:foodItem.name, calories:foodItem.calories});
+                    console.log(nutrionistasApp.dinner);
+                    break;
+                case 'snacks':
+                    nutrionistasApp.snacks.push({name:foodItem.name, calories:foodItem.calories});
+                    console.log(nutrionistasApp.snacks);
+                    break;
+            }
         }
 
         //clear the food search result then hide the div
         let displayName = "#" + nutrionistasApp.search + "-results"
         $(displayName).empty().fadeOut();
+
+        storeAllFoodToDatabase();
 
     });
 
@@ -328,6 +349,10 @@ function retrieveUserInfoFromLocalStorage (){
         nutrionistasApp.isUserInfoComplete = true;
         if(debug) {console.log("user info retrieval was sucessful", nutrionistasApp.userInfo)}
    
+        //fill out user info div
+        $("#name-display").text(nutrionistasApp.userInfo.name);
+        $("#gender-display").text(nutrionistasApp.userInfo.gender);
+        $("#goal-display").text(nutrionistasApp.userInfo.goal);
     //if null    
     }else {
         console.log("Missing userinfo");
@@ -532,6 +557,7 @@ function getTheCurentDateAndTime(){
     }
     //create the datestring
     nutrionistasApp.currentDateString = `${year}-${month}-${day}`;
+    $("#date-display").text(nutrionistasApp.currentDateString);
     //calculate number of seconds remaining in the day
     nutrionistasApp.secondsRemaining = 86400 - ((hours*60*60) + (minutes*60) + seconds);
     if(debug){console.log("nutrionistasApp.secondsRemaining", nutrionistasApp.secondsRemaining);}
@@ -560,9 +586,9 @@ function getReadyForAnotherDay() {
 
 }
 
-function foodSearch(foodItem) {
+function foodSearch(searchWords) {
 
-    let url = "https://api.edamam.com/api/food-database/parser?ingr=" + foodItem +  "&app_id=422e6eb9&app_key=a3e3c2376edf1be05dc26f0f2e4f9fa1";
+    let url = "https://api.edamam.com/api/food-database/parser?ingr=" + searchWords +  "&app_id=422e6eb9&app_key=a3e3c2376edf1be05dc26f0f2e4f9fa1";
     console.log("url: ", url);
 
     $.ajax({
@@ -571,19 +597,26 @@ function foodSearch(foodItem) {
     }).then(function(response){
         if(debug){console.log(response);}
         
-        let label = response.parsed[0].food.label;
-        let calories = response.parsed[0].food.nutrients.ENERC_KCAL;
+        //do nothing if parsed is zero
+        if(response.parsed.length===0){
+            console.log("Zero 'parse' results from edamam");
+            console.log("Try other keywords");
+            return false;
+        }
+  
+        foodItem.name = response.parsed[0].food.label;
+        foodItem.calories = response.parsed[0].food.nutrients.ENERC_KCAL;
 
         //heading
         let heading = "";
         //food
-        let foodItem = $("<div></div>").addClass("row my-2")
-        .append(`<div class="col-6 col-sm-2">${label}</div> <div class="col-6 col-sm-2">${calories} cal</div>`);
+        let food = $("<div></div>").addClass("row my-2")
+        .append(`<div class="col-6 col-sm-2">${foodItem.name}</div> <div class="col-6 col-sm-2">${foodItem.calories} cal</div>`);
         
         let acceptButton = $("<button>Accept</button>").addClass("food-action m-2").val("accept");
         let cancelButton = $("<button>Cancel</button>").addClass("food-action m-2").val("cancel");
         let displayName = "#" + nutrionistasApp.search + "-results"
-        $(displayName).append(foodItem).append(acceptButton).append(cancelButton).fadeIn();
+        $(displayName).append(food).append(acceptButton).append(cancelButton).fadeIn();
         console.log(displayName);
     });
 
