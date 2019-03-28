@@ -32,9 +32,52 @@ $(document).ready(function() {
 
     start();
 
-    //EVENT: Submit
+    //EVENT: Submit user info
     $("#submit-button").on("click", function(){  
+        if(debug){console.log("EVENT: submitted user info")};
+        
         collectUserInfo();
+    });
+
+    //EVENT: food search
+    $(".food-search").on("click", function(){
+        if(debug){console.log("EVENT: searching for food");}
+        event.preventDefault();
+
+        //value + '-input' = id of input element
+        nutrionistasApp.search = $(this).val();
+        let inputName = "#" + $(this).val() + "-input";
+        let foodItem = $(inputName).val().trim().toLowerCase();
+        if(foodItem===""){
+            console.log("please enter a food");
+            return false;
+        }
+
+        foodItem = foodItem.replace(' ','%20');
+        console.log("Search for FOOD: ",foodItem);
+        foodSearch(foodItem);
+    });
+    
+    // EVENT: accept/cancel food search result
+    $(document).on("click", ".food-action", function(){
+        if(debug){console.log("EVENT: user response to food result");}
+        event.preventDefault();
+
+        //get the user response > accept or cancel
+        let userResponse = $(this).val();
+        
+        //do nothing
+        if(userResponse==="cancel"){
+
+        //save the food
+        } else {
+
+        }
+
+        //clear the food search result then hide the div
+        let displayName = "#" + nutrionistasApp.search + "-results"
+        $(displayName).empty().fadeOut();
+
     });
 
 });
@@ -62,11 +105,12 @@ var nutrionistasApp = {
     isUserInfoComplete: false,
     currentDateString: "",
     dbRef: "",
-    listener: ""
+    listener: "",
     secondsRemaining: 0,
     endOfDayTimer: "",
     consumedCalories: 0,
-    remainingCalories: 0
+    remainingCalories: 0,
+    search: ""
 }
 
   var string1 = "";
@@ -262,7 +306,7 @@ function processFoodFromDatabase(snapshot){
     }
     console.log(nutrionistasApp.userInfo);
     //TODO: check if dailyCalories/goal is zero > show '--' for goal and remaining
-    //TODO: show target, consumed and remaining
+    //show target, consumed and remaining
     $("#daily-calories-display").text(nutrionistasApp.userInfo.dailyCalories);
     $("#consumed-calories-display").text(nutrionistasApp.consumedCalories);
     $("#remaining-calories-display").text(nutrionistasApp.userInfo.dailyCalories - nutrionistasApp.consumedCalories);
@@ -279,6 +323,7 @@ function retrieveUserInfoFromLocalStorage (){
         fromLocalStorage = JSON.parse(fromLocalStorage);
         nutrionistasApp.userInfo.name = fromLocalStorage.name;
         nutrionistasApp.userInfo.gender = fromLocalStorage.gender;
+        nutrionistasApp.userInfo.goal = fromLocalStorage.goal;
         nutrionistasApp.userInfo.dailyCalories = fromLocalStorage.dailyCalories;
         nutrionistasApp.isUserInfoComplete = true;
         if(debug) {console.log("user info retrieval was sucessful", nutrionistasApp.userInfo)}
@@ -453,7 +498,7 @@ function start (){
     nutrionistasApp.listener = setupValueListener(nutrionistasApp.currentDateString);
     console.log("Listener: ", nutrionistasApp.listener);
 
-    test_food();
+    // test_food();
 }
 
 var theday = 1;
@@ -463,11 +508,10 @@ function getTheCurentDateAndTime(){
     let theDate, year, month, day, hours, minutes, seconds;
 
     //start of test ------------
-    var d = new Date(2018, 11, theday, 23, 55, 0, 0);
+    // var theDate = new Date(2018, 11, theday, 23, 55, 0, 0);
     // end of test----------
 
-    // theDate = new Date();
-    theDate = d;
+    theDate = new Date();
     year = theDate.getFullYear();
     month = theDate.getMonth() + 1;
     day = theDate.getDate();
@@ -476,7 +520,7 @@ function getTheCurentDateAndTime(){
     seconds = theDate.getSeconds();
     
     //start of test ------------
-    theday++;
+    // theday++;
     //end of test ------------
 
     //make sure that the month and day are 2 digits long
@@ -503,63 +547,44 @@ function getReadyForAnotherDay() {
     nutrionistasApp.dbRef = database.ref().child(nutrionistasApp.currentDateString);
     //set a 'value' event listener for today's date
     nutrionistasApp.listener = setupValueListener(nutrionistasApp.currentDateString);
-    //setup a new 24hour timer
-    // nutrionistasApp.endOfDayTimer = setTimeout(function(){
-    //     if(debug) {console.log("EVENT: a new day has begun")}
-    //     getReadyForAnotherDay();
-    // }, 86400*1000 );
-
+    // setup a new 24hour timer
     nutrionistasApp.endOfDayTimer = setTimeout(function(){
         if(debug) {console.log("EVENT: a new day has begun")}
         getReadyForAnotherDay();
-    }, 300*1000 );
+    }, 86400*1000 );
+
+    // nutrionistasApp.endOfDayTimer = setTimeout(function(){
+    //     if(debug) {console.log("EVENT: a new day has begun")}
+    //     getReadyForAnotherDay();
+    // }, 300*1000 );
 
 }
 
+function foodSearch(foodItem) {
 
+    let url = "https://api.edamam.com/api/food-database/parser?ingr=" + foodItem +  "&app_id=422e6eb9&app_key=a3e3c2376edf1be05dc26f0f2e4f9fa1";
+    console.log("url: ", url);
 
-// ======================TEST CODE 
+    $.ajax({
+        url: url,
+        method: "GET"
+    }).then(function(response){
+        if(debug){console.log(response);}
+        
+        let label = response.parsed[0].food.label;
+        let calories = response.parsed[0].food.nutrients.ENERC_KCAL;
 
-function test_food() {
-    let name = "",
-        calories = 0;
-
-    // breakfast
-    name = "egg";
-    calories = 70;
-    nutrionistasApp.breakfast.push({name, calories});
-    console.log("before ", nutrionistasApp.breakfast);
-
-    name = "coffee";
-    calories = 90;
-    nutrionistasApp.breakfast.push({name, calories});
-    console.log("after ", nutrionistasApp.breakfast);
-
-    // lunch
-    name = "salad";
-    calories = 300;
-    nutrionistasApp.lunch.push({name, calories});
-
-    // dinner
-    name = "baked chicken";
-    calories = 350;
-    nutrionistasApp.dinner.push({name, calories});
-
-    // snacks
-    name = "chocolate cake";
-    calories = 400;
-    nutrionistasApp.snacks.push({name, calories});
-    
-    nutrionistasApp.dbRef.set({
-        "breakfast": nutrionistasApp.breakfast,
-        "lunch": nutrionistasApp.lunch,
-        "dinner": nutrionistasApp.dinner,
-        "snacks": nutrionistasApp.snacks,
+        //heading
+        let heading = "";
+        //food
+        let foodItem = $("<div></div>").addClass("row my-2")
+        .append(`<div class="col-6 col-sm-2">${label}</div> <div class="col-6 col-sm-2">${calories} cal</div>`);
+        
+        let acceptButton = $("<button>Accept</button>").addClass("food-action m-2").val("accept");
+        let cancelButton = $("<button>Cancel</button>").addClass("food-action m-2").val("cancel");
+        let displayName = "#" + nutrionistasApp.search + "-results"
+        $(displayName).append(foodItem).append(acceptButton).append(cancelButton).fadeIn();
+        console.log(displayName);
     });
-}
 
-/*  ongoing tests
-    - faking date to test date rollover in the "getTheCurentDateAndTime"
-    - setting a short end of day rollover timer "getReadyForAnotherDay"
-    - at the end of 'start' i executed 'test_food'
-*/
+}

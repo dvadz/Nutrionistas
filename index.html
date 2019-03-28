@@ -91,13 +91,11 @@
             <h5 class="heading bg-dark px-2">Breakfast</h5>
             <form class="form-inline pl-2">
                 <input id="breakfast-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                <button id="breakfast-button" class="btn btn-outline-primary my-2" type="submit">Search</button>
+                <button id="breakfast-button" class="btn btn-outline-primary my-2 food-search" value="breakfast" type="submit">Search</button>
             </form>
             <div id="breakfast-display" class="container">
-                <!-- <div class="row my-2">
-                    <div class="col-6 col-sm-2">cereal</div>
-                    <div class="col-6 col-sm-2">100 cal</div>
-                </div> -->
+            </div>
+            <div id="breakfast-results" class="container collapse border border-dark">
             </div>
         </div>
         <!-- LUNCH -->
@@ -105,13 +103,11 @@
             <h5 class="heading bg-dark px-2">Lunch</h5>
             <form class="form-inline pl-2">
                     <input id="lunch-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                    <button id="lunch-button" class="btn btn-outline-primary my-2" type="submit">Search</button>
+                    <button id="lunch-button" class="btn btn-outline-primary my-2 food-search" value="lunch" type="submit" >Search</button>
                 </form>
                 <div id="lunch-display" class="container">
-                    <!-- <ul>
-                        <li>banana</li>
-                        <li>cereal</li>
-                    </ul> -->
+                </div>
+                <div id="lunch-results" class="container collapse border border-dark">
                 </div>
             </div>
         <!-- DINNER -->
@@ -119,9 +115,11 @@
             <h5 class="heading bg-dark px-2">Dinner</h5>
             <form class="form-inline pl-2">
                 <input id="dinner-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                <button id="dinner-button" class="btn btn-outline-primary my-2" type="submit">Search</button>
+                <button id="dinner-button" class="btn btn-outline-primary my-2 food-search" value="dinner" type="submit">Search</button>
             </form>
             <div id="dinner-display" class="container">         
+            </div>
+            <div id="dinner-results" class="container collapse border border-dark">
             </div>
         </div>
         <!-- SNACKS -->
@@ -129,16 +127,11 @@
             <h5 class="heading bg-dark px-2">Snacks</h5>
             <form class="form-inline pl-2">
                 <input id="snacks-input" class="form-control mr-2" placeholder="food" aria-label="Search">
-                <button id="snacks-button" class="btn btn-outline-primary my-2 my-2" type="submit">Search</button>
+                <button id="snacks-button" class="btn btn-outline-primary my-2 my-2 food-search" value="snacks" type="submit">Search</button>
             </form>
             <div id="snacks-display" class="container">
             </div>
-            <div class="search-list">
-                <ul class="border">
-                    <li>small banana</li>
-                    <li>large banana</li>
-                    <li>banana bread</li>
-                </ul>
+            <div id="snacks-results" class="container collapse border border-dark">
             </div>
         </div>
         <!-- WEIGHT -->
